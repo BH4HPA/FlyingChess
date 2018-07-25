@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using System.IO;
 using System.Resources;
 using System.Reflection;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading;
 
 namespace flychess
 {
@@ -41,34 +44,46 @@ namespace flychess
         int blueInt;
         int greenInt;
         int step = 0;
-        //System.Timers.Timer t;
-
-        //public void theout(object source, System.Timers.ElapsedEventArgs e)
-        //{
-        //    timerOut.Value = timerOut.Value + 1;
-        //    if (timerOut.Value == 60)
-        //    {
-        //        t = null;
-        //    }
-        //}
+        //挂接socket线程
+        Socket socketClient = new Socket(SocketType.Stream, ProtocolType.Tcp);
         public Form1()
         {
             InitializeComponent();
             timerOut.Value = 0;
             
             rs1.Image = redChess;
+            rs2.Image = redChess;
+            rs3.Image = redChess;
+            rs4.Image = redChess;
             ys1.Image = yellowChess;
+            ys2.Image = yellowChess;
+            ys3.Image = yellowChess;
+            ys4.Image = yellowChess;
             ls1.Image = blueChess;
+            ls2.Image = blueChess;
+            ls3.Image = blueChess;
+            ls4.Image = blueChess;
             gs1.Image = greenChess;
+            gs2.Image = greenChess;
+            gs3.Image = greenChess;
+            gs4.Image = greenChess;
             redInt = 1;
             yellowInt = 1;
             blueInt = 1;
             greenInt = 1;
 
-            //t = new System.Timers.Timer(1000);
-            //t.Elapsed += new System.Timers.ElapsedEventHandler(theout);//到达时间的时候执行事件；
-            //t.AutoReset = true;//设置是执行一次（false）还是一直执行(true)；
-            //t.Enabled = true;//是否执行System.Timers.Timer.Elapsed事件；
+            //挂接socket线程
+            IPAddress ip = IPAddress.Parse("140.143.235.48");
+            IPEndPoint point = new IPEndPoint(ip, 33351);
+            //进行连接
+            socketClient.Connect(point);
+
+            //不停的接收服务器端发送的消息
+            Thread thread = new Thread(Ray.Recive);
+            thread.IsBackground = true;
+            thread.Start(socketClient);
+            var buffter = Encoding.UTF8.GetBytes($"ready");
+            var temp = socketClient.Send(buffter);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -147,6 +162,10 @@ namespace flychess
             timer1.Enabled = true;
             if (picid == "s")
             {
+                if(step == 2 | step == 6)
+                {
+                    step = step + 4;
+                }
                 changePic = Ray.GetLeft(pictureBox.Name, "s") + (step + 3).ToString();
                 pictureBox.Image = null;
                 object changeo = this.GetType().GetField(changePic, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
@@ -179,6 +198,10 @@ namespace flychess
                     }
                     nextMove();
                     return;
+                }
+                if (int.Parse(picid) == 12)
+                {
+                    step = step + 12;
                 }
                 if (int.Parse(picid) == 1)
                 {
@@ -857,20 +880,20 @@ namespace flychess
             }
             if(pictureBox.Name.Substring(0,1) == "r")
             {
-                redStart = 1;
+                redStart += 1;
             }
             else {
                 if (pictureBox.Name.Substring(0, 1) == "y")
                 {
-                    yellowStart = 1;
+                    yellowStart += 1;
                 }
                 else {
                     if (pictureBox.Name.Substring(0, 1) == "l")
                     {
-                        blueStart = 1;
+                        blueStart += 1;
                     }
                     else {
-                        greenStart = 1;
+                        greenStart += 1;
                     }
                 }
             }
@@ -882,24 +905,28 @@ namespace flychess
                 if (pictureBox.Image == redChess)
                 {
                     restartChess("rs", redChess);
+                    redStart -= 1;
                 }
                 else
                 {
                     if (pictureBox.Image == yellowChess)
                     {
                         restartChess("ys", yellowChess);
+                        yellowStart -= 1;
                     }
                     else
                     {
                         if (pictureBox.Image == blueChess)
                         {
                             restartChess("ls", blueChess);
+                            blueStart -= 1;
                         }
                         else
                         {
                             if (pictureBox.Image == greenChess)
                             {
                                 restartChess("gs", greenChess);
+                                greenStart -= 1;
                             }
                         }
                     }
@@ -1436,21 +1463,21 @@ namespace flychess
             {
                 stepBox.BackColor = Color.Lime;
             }
-            if (whoAm == 1 & redStart == 0 & step < 5) {
+            if (whoAm == 1 & redStart == 4 & step < 5) {
                 nextMove();
                 return;
             }
-            if (whoAm == 2 & yellowStart == 0 & step < 5)
+            if (whoAm == 2 & yellowStart == 4 & step < 5)
             {
                 nextMove();
                 return;
             }
-            if (whoAm == 3 & blueStart == 0 & step < 5)
+            if (whoAm == 3 & blueStart == 4 & step < 5)
             {
                 nextMove();
                 return;
             }
-            if (whoAm == 4 & greenStart == 0 & step < 5)
+            if (whoAm == 4 & greenStart == 4 & step < 5)
             {
                 nextMove();
                 return;
@@ -1480,7 +1507,7 @@ namespace flychess
         private void timer1_Tick(object sender, EventArgs e)
         {
             timerOut.Value = timerOut.Value + 1;
-            if (timerOut.Value == 60)
+            if (timerOut.Value == timerOut.Maximum)
             {
                 timer1.Enabled = false;
                 timerOut.Value = 0;
@@ -1599,6 +1626,48 @@ namespace flychess
             while (Math.Abs(Environment.TickCount - start) < milliSecond)//毫秒
             {
                 Application.DoEvents();//可执行某无聊的操作
+            }
+        }
+        /// <summary>
+        /// 接收消息
+        /// </summary>
+        /// <param name="o"></param>
+        public static void Recive(object o)
+        {
+            var send = o as Socket;
+            while (true)
+            {
+                //获取发送过来的消息
+                byte[] buffer = new byte[1024 * 1024 * 2];
+                var effective = send.Receive(buffer);
+                if (effective == 0)
+                {
+                    break;
+                }
+                var str = Encoding.UTF8.GetString(buffer, 0, effective);
+                Console.WriteLine("socket返回：" + str);
+                //处理消息
+
+            }
+        }
+        /// <summary>
+        /// 监听连接
+        /// </summary>
+        /// <param name="o"></param>
+        public static void Listen(object o)
+        {
+            var serverSocket = o as Socket;
+            while (true)
+            {
+                //等待连接并且创建一个负责通讯的socket
+                var send = serverSocket.Accept();
+                //获取链接的IP地址
+                var sendIpoint = send.RemoteEndPoint.ToString();
+                Console.WriteLine($"{sendIpoint}Connection");
+                //开启一个新线程不停接收消息
+                Thread thread = new Thread(Recive);
+                thread.IsBackground = true;
+                thread.Start(send);
             }
         }
     }

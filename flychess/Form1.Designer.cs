@@ -34,10 +34,12 @@ namespace flychess
             this.p1n = new System.Windows.Forms.Label();
             this.statusUnder = new System.Windows.Forms.GroupBox();
             this.status = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.p2n = new System.Windows.Forms.Label();
             this.p3n = new System.Windows.Forms.Label();
             this.p4n = new System.Windows.Forms.Label();
-            this.timerOut = new MaterialSkin.Controls.MaterialProgressBar();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timerOut = new System.Windows.Forms.ProgressBar();
             this.stepBox = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -136,7 +138,6 @@ namespace flychess
             this.ys3 = new System.Windows.Forms.PictureBox();
             this.ys2 = new System.Windows.Forms.PictureBox();
             this.ys1 = new System.Windows.Forms.PictureBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.statusUnder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.stepBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -245,8 +246,9 @@ namespace flychess
             // 
             // statusUnder
             // 
-            resources.ApplyResources(this.statusUnder, "statusUnder");
             this.statusUnder.Controls.Add(this.status);
+            this.statusUnder.Controls.Add(this.label1);
+            resources.ApplyResources(this.statusUnder, "statusUnder");
             this.statusUnder.Name = "statusUnder";
             this.statusUnder.TabStop = false;
             // 
@@ -254,6 +256,11 @@ namespace flychess
             // 
             resources.ApplyResources(this.status, "status");
             this.status.Name = "status";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
             // 
             // p2n
             // 
@@ -270,525 +277,529 @@ namespace flychess
             resources.ApplyResources(this.p4n, "p4n");
             this.p4n.Name = "p4n";
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 200;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // timerOut
             // 
             resources.ApplyResources(this.timerOut, "timerOut");
-            this.timerOut.Depth = 0;
-            this.timerOut.Maximum = 60;
-            this.timerOut.MouseState = MaterialSkin.MouseState.Hover;
+            this.timerOut.Maximum = 300;
             this.timerOut.Name = "timerOut";
             this.timerOut.Step = 1;
-            this.timerOut.Value = 27;
+            this.timerOut.Value = 20;
             // 
             // stepBox
             // 
-            resources.ApplyResources(this.stepBox, "stepBox");
             this.stepBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.stepBox, "stepBox");
             this.stepBox.Name = "stepBox";
             this.stepBox.TabStop = false;
             this.stepBox.Click += new System.EventHandler(this.pictureBox5_Click);
             // 
             // pictureBox4
             // 
-            resources.ApplyResources(this.pictureBox4, "pictureBox4");
             this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.pictureBox4, "pictureBox4");
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.TabStop = false;
             // 
             // pictureBox3
             // 
-            resources.ApplyResources(this.pictureBox3, "pictureBox3");
             this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.pictureBox3, "pictureBox3");
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.TabStop = false;
             // 
             // pictureBox2
             // 
-            resources.ApplyResources(this.pictureBox2, "pictureBox2");
             this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.pictureBox2, "pictureBox2");
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.TabStop = false;
             // 
             // pictureBox1
             // 
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
             // 
             // g7
             // 
-            resources.ApplyResources(this.g7, "g7");
             this.g7.BackColor = System.Drawing.Color.Yellow;
             this.g7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.g7, "g7");
             this.g7.Name = "g7";
             this.g7.TabStop = false;
             this.g7.Click += new System.EventHandler(this.g7_Click);
             // 
             // l7
             // 
-            resources.ApplyResources(this.l7, "l7");
             this.l7.BackColor = System.Drawing.Color.Red;
             this.l7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.l7, "l7");
             this.l7.Name = "l7";
             this.l7.TabStop = false;
             this.l7.Click += new System.EventHandler(this.l7_Click);
             // 
             // y8
             // 
-            resources.ApplyResources(this.y8, "y8");
             this.y8.BackColor = System.Drawing.Color.Red;
             this.y8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.y8, "y8");
             this.y8.Name = "y8";
             this.y8.TabStop = false;
             this.y8.Click += new System.EventHandler(this.y8_Click);
             // 
             // r7
             // 
-            resources.ApplyResources(this.r7, "r7");
             this.r7.BackColor = System.Drawing.Color.Aqua;
             this.r7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.r7, "r7");
             this.r7.Name = "r7";
             this.r7.TabStop = false;
             this.r7.Click += new System.EventHandler(this.r7_Click);
             // 
             // gs
             // 
-            resources.ApplyResources(this.gs, "gs");
             this.gs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.gs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.gs, "gs");
             this.gs.Name = "gs";
             this.gs.TabStop = false;
             this.gs.Click += new System.EventHandler(this.gs_Click);
             // 
             // ls
             // 
-            resources.ApplyResources(this.ls, "ls");
             this.ls.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.ls.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.ls, "ls");
             this.ls.Name = "ls";
             this.ls.TabStop = false;
             this.ls.Click += new System.EventHandler(this.ls_Click);
             // 
             // ys
             // 
-            resources.ApplyResources(this.ys, "ys");
             this.ys.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.ys.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.ys, "ys");
             this.ys.Name = "ys";
             this.ys.TabStop = false;
             this.ys.Click += new System.EventHandler(this.ys_Click);
             // 
             // rs
             // 
-            resources.ApplyResources(this.rs, "rs");
             this.rs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.rs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.rs, "rs");
             this.rs.Name = "rs";
             this.rs.TabStop = false;
             this.rs.Click += new System.EventHandler(this.rs_Click);
             // 
             // re1
             // 
-            resources.ApplyResources(this.re1, "re1");
             this.re1.BackColor = System.Drawing.Color.Red;
             this.re1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.re1, "re1");
             this.re1.Name = "re1";
             this.re1.TabStop = false;
             this.re1.Click += new System.EventHandler(this.re1_Click);
             // 
             // re3
             // 
-            resources.ApplyResources(this.re3, "re3");
             this.re3.BackColor = System.Drawing.Color.Red;
             this.re3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.re3, "re3");
             this.re3.Name = "re3";
             this.re3.TabStop = false;
             this.re3.Click += new System.EventHandler(this.re3_Click);
             // 
             // re4
             // 
-            resources.ApplyResources(this.re4, "re4");
             this.re4.BackColor = System.Drawing.Color.Red;
             this.re4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.re4, "re4");
             this.re4.Name = "re4";
             this.re4.TabStop = false;
             this.re4.Click += new System.EventHandler(this.re4_Click);
             // 
             // re5
             // 
-            resources.ApplyResources(this.re5, "re5");
             this.re5.BackColor = System.Drawing.Color.Red;
             this.re5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.re5, "re5");
             this.re5.Name = "re5";
             this.re5.TabStop = false;
             this.re5.Click += new System.EventHandler(this.re5_Click);
             // 
             // ge5
             // 
-            resources.ApplyResources(this.ge5, "ge5");
             this.ge5.BackColor = System.Drawing.Color.Lime;
             this.ge5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.ge5, "ge5");
             this.ge5.Name = "ge5";
             this.ge5.TabStop = false;
             this.ge5.Click += new System.EventHandler(this.ge5_Click);
             // 
             // ye5
             // 
-            resources.ApplyResources(this.ye5, "ye5");
             this.ye5.BackColor = System.Drawing.Color.Yellow;
             this.ye5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.ye5, "ye5");
             this.ye5.Name = "ye5";
             this.ye5.TabStop = false;
             this.ye5.Click += new System.EventHandler(this.ye5_Click);
             // 
             // ye4
             // 
-            resources.ApplyResources(this.ye4, "ye4");
             this.ye4.BackColor = System.Drawing.Color.Yellow;
             this.ye4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.ye4, "ye4");
             this.ye4.Name = "ye4";
             this.ye4.TabStop = false;
             this.ye4.Click += new System.EventHandler(this.ye4_Click);
             // 
             // ye3
             // 
-            resources.ApplyResources(this.ye3, "ye3");
             this.ye3.BackColor = System.Drawing.Color.Yellow;
             this.ye3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.ye3, "ye3");
             this.ye3.Name = "ye3";
             this.ye3.TabStop = false;
             this.ye3.Click += new System.EventHandler(this.ye3_Click);
             // 
             // ye2
             // 
-            resources.ApplyResources(this.ye2, "ye2");
             this.ye2.BackColor = System.Drawing.Color.Yellow;
             this.ye2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.ye2, "ye2");
             this.ye2.Name = "ye2";
             this.ye2.TabStop = false;
             this.ye2.Click += new System.EventHandler(this.ye2_Click);
             // 
             // ge3
             // 
-            resources.ApplyResources(this.ge3, "ge3");
             this.ge3.BackColor = System.Drawing.Color.Lime;
             this.ge3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.ge3, "ge3");
             this.ge3.Name = "ge3";
             this.ge3.TabStop = false;
             this.ge3.Click += new System.EventHandler(this.ge3_Click);
             // 
             // ge2
             // 
-            resources.ApplyResources(this.ge2, "ge2");
             this.ge2.BackColor = System.Drawing.Color.Lime;
             this.ge2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.ge2, "ge2");
             this.ge2.Name = "ge2";
             this.ge2.TabStop = false;
             this.ge2.Click += new System.EventHandler(this.ge2_Click);
             // 
             // ge1
             // 
-            resources.ApplyResources(this.ge1, "ge1");
             this.ge1.BackColor = System.Drawing.Color.Lime;
             this.ge1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.ge1, "ge1");
             this.ge1.Name = "ge1";
             this.ge1.TabStop = false;
             this.ge1.Click += new System.EventHandler(this.ge1_Click);
             // 
             // g1
             // 
-            resources.ApplyResources(this.g1, "g1");
             this.g1.BackColor = System.Drawing.Color.Lime;
             this.g1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.g1, "g1");
             this.g1.Name = "g1";
             this.g1.TabStop = false;
             this.g1.Click += new System.EventHandler(this.g1_Click);
             // 
             // g2
             // 
-            resources.ApplyResources(this.g2, "g2");
             this.g2.BackColor = System.Drawing.Color.Red;
             this.g2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.g2, "g2");
             this.g2.Name = "g2";
             this.g2.TabStop = false;
             this.g2.Click += new System.EventHandler(this.g2_Click);
             // 
             // le5
             // 
-            resources.ApplyResources(this.le5, "le5");
             this.le5.BackColor = System.Drawing.Color.Aqua;
             this.le5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.le5, "le5");
             this.le5.Name = "le5";
             this.le5.TabStop = false;
             this.le5.Click += new System.EventHandler(this.le5_Click);
             // 
             // le4
             // 
-            resources.ApplyResources(this.le4, "le4");
             this.le4.BackColor = System.Drawing.Color.Aqua;
             this.le4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.le4, "le4");
             this.le4.Name = "le4";
             this.le4.TabStop = false;
             this.le4.Click += new System.EventHandler(this.le4_Click);
             // 
             // le3
             // 
-            resources.ApplyResources(this.le3, "le3");
             this.le3.BackColor = System.Drawing.Color.Aqua;
             this.le3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.le3, "le3");
             this.le3.Name = "le3";
             this.le3.TabStop = false;
             this.le3.Click += new System.EventHandler(this.le3_Click);
             // 
             // le2
             // 
-            resources.ApplyResources(this.le2, "le2");
             this.le2.BackColor = System.Drawing.Color.Aqua;
             this.le2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.le2, "le2");
             this.le2.Name = "le2";
             this.le2.TabStop = false;
             this.le2.Click += new System.EventHandler(this.le2_Click);
             // 
             // le1
             // 
-            resources.ApplyResources(this.le1, "le1");
             this.le1.BackColor = System.Drawing.Color.Aqua;
             this.le1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.le1, "le1");
             this.le1.Name = "le1";
             this.le1.TabStop = false;
             this.le1.Click += new System.EventHandler(this.le1_Click);
             // 
             // ye1
             // 
-            resources.ApplyResources(this.ye1, "ye1");
             this.ye1.BackColor = System.Drawing.Color.Yellow;
             this.ye1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.ye1, "ye1");
             this.ye1.Name = "ye1";
             this.ye1.TabStop = false;
             this.ye1.Click += new System.EventHandler(this.ye1_Click);
             // 
             // r9
             // 
-            resources.ApplyResources(this.r9, "r9");
             this.r9.BackColor = System.Drawing.Color.Red;
             this.r9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.r9, "r9");
             this.r9.Name = "r9";
             this.r9.TabStop = false;
             this.r9.Click += new System.EventHandler(this.r9_Click);
             // 
             // y4
             // 
-            resources.ApplyResources(this.y4, "y4");
             this.y4.BackColor = System.Drawing.Color.Red;
             this.y4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.y4, "y4");
             this.y4.Name = "y4";
             this.y4.TabStop = false;
             this.y4.Click += new System.EventHandler(this.y4_Click);
             // 
             // y3
             // 
-            resources.ApplyResources(this.y3, "y3");
             this.y3.BackColor = System.Drawing.Color.Lime;
             this.y3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.y3, "y3");
             this.y3.Name = "y3";
             this.y3.TabStop = false;
             this.y3.Click += new System.EventHandler(this.y3_Click);
             // 
             // y2
             // 
-            resources.ApplyResources(this.y2, "y2");
             this.y2.BackColor = System.Drawing.Color.Aqua;
             this.y2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.y2.Cursor = System.Windows.Forms.Cursors.Default;
+            resources.ApplyResources(this.y2, "y2");
             this.y2.Name = "y2";
             this.y2.TabStop = false;
             this.y2.Click += new System.EventHandler(this.y2_Click);
             // 
             // y1
             // 
-            resources.ApplyResources(this.y1, "y1");
             this.y1.BackColor = System.Drawing.Color.Yellow;
             this.y1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.y1, "y1");
             this.y1.Name = "y1";
             this.y1.TabStop = false;
             this.y1.Click += new System.EventHandler(this.y1_Click);
             // 
             // r13
             // 
-            resources.ApplyResources(this.r13, "r13");
             this.r13.BackColor = System.Drawing.Color.Red;
             this.r13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.r13, "r13");
             this.r13.Name = "r13";
             this.r13.TabStop = false;
             this.r13.Click += new System.EventHandler(this.r13_Click);
             // 
             // r12
             // 
-            resources.ApplyResources(this.r12, "r12");
             this.r12.BackColor = System.Drawing.Color.Lime;
             this.r12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.r12, "r12");
             this.r12.Name = "r12";
             this.r12.TabStop = false;
             this.r12.Click += new System.EventHandler(this.r12_Click);
             // 
             // r11
             // 
-            resources.ApplyResources(this.r11, "r11");
             this.r11.BackColor = System.Drawing.Color.Aqua;
             this.r11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.r11, "r11");
             this.r11.Name = "r11";
             this.r11.TabStop = false;
             this.r11.Click += new System.EventHandler(this.r11_Click);
             // 
             // l9
             // 
-            resources.ApplyResources(this.l9, "l9");
             this.l9.BackColor = System.Drawing.Color.Aqua;
             this.l9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.l9, "l9");
             this.l9.Name = "l9";
             this.l9.TabStop = false;
             this.l9.Click += new System.EventHandler(this.l9_Click);
             // 
             // r10
             // 
-            resources.ApplyResources(this.r10, "r10");
             this.r10.BackColor = System.Drawing.Color.Yellow;
             this.r10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.r10, "r10");
             this.r10.Name = "r10";
             this.r10.TabStop = false;
             this.r10.Click += new System.EventHandler(this.r10_Click);
             // 
             // r8
             // 
-            resources.ApplyResources(this.r8, "r8");
             this.r8.BackColor = System.Drawing.Color.Lime;
             this.r8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.r8, "r8");
             this.r8.Name = "r8";
             this.r8.TabStop = false;
             this.r8.Click += new System.EventHandler(this.r8_Click);
             // 
             // r6
             // 
-            resources.ApplyResources(this.r6, "r6");
             this.r6.BackColor = System.Drawing.Color.Yellow;
             this.r6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.r6, "r6");
             this.r6.Name = "r6";
             this.r6.TabStop = false;
             this.r6.Click += new System.EventHandler(this.r6_Click);
             // 
             // r5
             // 
-            resources.ApplyResources(this.r5, "r5");
             this.r5.BackColor = System.Drawing.Color.Red;
             this.r5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.r5, "r5");
             this.r5.Name = "r5";
             this.r5.TabStop = false;
             this.r5.Click += new System.EventHandler(this.r5_Click);
             // 
             // r4
             // 
-            resources.ApplyResources(this.r4, "r4");
             this.r4.BackColor = System.Drawing.Color.Lime;
             this.r4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.r4, "r4");
             this.r4.Name = "r4";
             this.r4.TabStop = false;
             this.r4.Click += new System.EventHandler(this.r4_Click);
             // 
             // r2
             // 
-            resources.ApplyResources(this.r2, "r2");
             this.r2.BackColor = System.Drawing.Color.Yellow;
             this.r2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.r2, "r2");
             this.r2.Name = "r2";
             this.r2.TabStop = false;
             this.r2.Click += new System.EventHandler(this.r2_Click);
             // 
             // r1
             // 
-            resources.ApplyResources(this.r1, "r1");
             this.r1.BackColor = System.Drawing.Color.Red;
             this.r1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.r1, "r1");
             this.r1.Name = "r1";
             this.r1.TabStop = false;
             this.r1.Click += new System.EventHandler(this.r1_Click);
             // 
             // g13
             // 
-            resources.ApplyResources(this.g13, "g13");
             this.g13.BackColor = System.Drawing.Color.Lime;
             this.g13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.g13, "g13");
             this.g13.Name = "g13";
             this.g13.TabStop = false;
             this.g13.Click += new System.EventHandler(this.g13_Click);
             // 
             // g11
             // 
-            resources.ApplyResources(this.g11, "g11");
             this.g11.BackColor = System.Drawing.Color.Yellow;
             this.g11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.g11, "g11");
             this.g11.Name = "g11";
             this.g11.TabStop = false;
             this.g11.Click += new System.EventHandler(this.g11_Click);
             // 
             // r3
             // 
-            resources.ApplyResources(this.r3, "r3");
             this.r3.BackColor = System.Drawing.Color.Aqua;
             this.r3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.r3, "r3");
             this.r3.Name = "r3";
             this.r3.TabStop = false;
             this.r3.Click += new System.EventHandler(this.r3_Click);
             // 
             // g12
             // 
-            resources.ApplyResources(this.g12, "g12");
             this.g12.BackColor = System.Drawing.Color.Aqua;
             this.g12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.g12, "g12");
             this.g12.Name = "g12";
             this.g12.TabStop = false;
             this.g12.Click += new System.EventHandler(this.g12_Click);
             // 
             // g10
             // 
-            resources.ApplyResources(this.g10, "g10");
             this.g10.BackColor = System.Drawing.Color.Red;
             this.g10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.g10, "g10");
             this.g10.Name = "g10";
             this.g10.TabStop = false;
             this.g10.Click += new System.EventHandler(this.g10_Click);
             // 
             // g9
             // 
-            resources.ApplyResources(this.g9, "g9");
             this.g9.BackColor = System.Drawing.Color.Lime;
             this.g9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.g9, "g9");
             this.g9.Name = "g9";
             this.g9.TabStop = false;
             this.g9.Click += new System.EventHandler(this.g9_Click);
             // 
             // g6
             // 
-            resources.ApplyResources(this.g6, "g6");
             this.g6.BackColor = System.Drawing.Color.Red;
             this.g6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.g6, "g6");
             this.g6.Name = "g6";
             this.g6.TabStop = false;
             this.g6.Click += new System.EventHandler(this.g6_Click);
             // 
             // g5
             // 
-            resources.ApplyResources(this.g5, "g5");
             this.g5.BackColor = System.Drawing.Color.Lime;
             this.g5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.g5, "g5");
             this.g5.Name = "g5";
             this.g5.TabStop = false;
             this.g5.Click += new System.EventHandler(this.g5_Click);
             // 
             // g4
             // 
-            resources.ApplyResources(this.g4, "g4");
             this.g4.BackColor = System.Drawing.Color.Aqua;
+            resources.ApplyResources(this.g4, "g4");
             this.g4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.g4.Name = "g4";
             this.g4.TabStop = false;
@@ -796,98 +807,98 @@ namespace flychess
             // 
             // g8
             // 
-            resources.ApplyResources(this.g8, "g8");
             this.g8.BackColor = System.Drawing.Color.Aqua;
             this.g8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.g8, "g8");
             this.g8.Name = "g8";
             this.g8.TabStop = false;
             this.g8.Click += new System.EventHandler(this.g8_Click);
             // 
             // g3
             // 
-            resources.ApplyResources(this.g3, "g3");
             this.g3.BackColor = System.Drawing.Color.Yellow;
             this.g3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.g3, "g3");
             this.g3.Name = "g3";
             this.g3.TabStop = false;
             this.g3.Click += new System.EventHandler(this.g3_Click);
             // 
             // re2
             // 
-            resources.ApplyResources(this.re2, "re2");
             this.re2.BackColor = System.Drawing.Color.Red;
             this.re2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.re2, "re2");
             this.re2.Name = "re2";
             this.re2.TabStop = false;
             this.re2.Click += new System.EventHandler(this.re2_Click);
             // 
             // ge4
             // 
-            resources.ApplyResources(this.ge4, "ge4");
             this.ge4.BackColor = System.Drawing.Color.Lime;
             this.ge4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.ge4, "ge4");
             this.ge4.Name = "ge4";
             this.ge4.TabStop = false;
             this.ge4.Click += new System.EventHandler(this.ge4_Click);
             // 
             // l12
             // 
-            resources.ApplyResources(this.l12, "l12");
             this.l12.BackColor = System.Drawing.Color.Yellow;
             this.l12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.l12, "l12");
             this.l12.Name = "l12";
             this.l12.TabStop = false;
             this.l12.Click += new System.EventHandler(this.l12_Click);
             // 
             // l13
             // 
-            resources.ApplyResources(this.l13, "l13");
             this.l13.BackColor = System.Drawing.Color.Aqua;
             this.l13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.l13, "l13");
             this.l13.Name = "l13";
             this.l13.TabStop = false;
             this.l13.Click += new System.EventHandler(this.l13_Click);
             // 
             // l11
             // 
-            resources.ApplyResources(this.l11, "l11");
             this.l11.BackColor = System.Drawing.Color.Red;
             this.l11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.l11, "l11");
             this.l11.Name = "l11";
             this.l11.TabStop = false;
             this.l11.Click += new System.EventHandler(this.l11_Click);
             // 
             // l8
             // 
-            resources.ApplyResources(this.l8, "l8");
             this.l8.BackColor = System.Drawing.Color.Yellow;
             this.l8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.l8, "l8");
             this.l8.Name = "l8";
             this.l8.TabStop = false;
             this.l8.Click += new System.EventHandler(this.l8_Click);
             // 
             // l6
             // 
-            resources.ApplyResources(this.l6, "l6");
             this.l6.BackColor = System.Drawing.Color.Lime;
             this.l6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.l6, "l6");
             this.l6.Name = "l6";
             this.l6.TabStop = false;
             this.l6.Click += new System.EventHandler(this.l6_Click);
             // 
             // l10
             // 
-            resources.ApplyResources(this.l10, "l10");
             this.l10.BackColor = System.Drawing.Color.Lime;
             this.l10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.l10, "l10");
             this.l10.Name = "l10";
             this.l10.TabStop = false;
             this.l10.Click += new System.EventHandler(this.l10_Click);
             // 
             // y12
             // 
-            resources.ApplyResources(this.y12, "y12");
             this.y12.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.y12, "y12");
             this.y12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.y12.Name = "y12";
             this.y12.TabStop = false;
@@ -895,260 +906,254 @@ namespace flychess
             // 
             // l5
             // 
-            resources.ApplyResources(this.l5, "l5");
             this.l5.BackColor = System.Drawing.Color.Aqua;
             this.l5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.l5, "l5");
             this.l5.Name = "l5";
             this.l5.TabStop = false;
             this.l5.Click += new System.EventHandler(this.l5_Click);
             // 
             // l4
             // 
-            resources.ApplyResources(this.l4, "l4");
             this.l4.BackColor = System.Drawing.Color.Yellow;
             this.l4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.l4, "l4");
             this.l4.Name = "l4";
             this.l4.TabStop = false;
             this.l4.Click += new System.EventHandler(this.l4_Click);
             // 
             // l3
             // 
-            resources.ApplyResources(this.l3, "l3");
             this.l3.BackColor = System.Drawing.Color.Red;
             this.l3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.l3, "l3");
             this.l3.Name = "l3";
             this.l3.TabStop = false;
             this.l3.Click += new System.EventHandler(this.l3_Click);
             // 
             // l2
             // 
-            resources.ApplyResources(this.l2, "l2");
             this.l2.BackColor = System.Drawing.Color.Lime;
             this.l2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.l2, "l2");
             this.l2.Name = "l2";
             this.l2.TabStop = false;
             this.l2.Click += new System.EventHandler(this.l2_Click);
             // 
             // l1
             // 
-            resources.ApplyResources(this.l1, "l1");
             this.l1.BackColor = System.Drawing.Color.Aqua;
             this.l1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.l1, "l1");
             this.l1.Name = "l1";
             this.l1.TabStop = false;
             this.l1.Click += new System.EventHandler(this.l1_Click);
             // 
             // y13
             // 
-            resources.ApplyResources(this.y13, "y13");
             this.y13.BackColor = System.Drawing.Color.Yellow;
             this.y13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.y13, "y13");
             this.y13.Name = "y13";
             this.y13.TabStop = false;
             this.y13.Click += new System.EventHandler(this.y13_Click);
             // 
             // y11
             // 
-            resources.ApplyResources(this.y11, "y11");
             this.y11.BackColor = System.Drawing.Color.Lime;
             this.y11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.y11, "y11");
             this.y11.Name = "y11";
             this.y11.TabStop = false;
             this.y11.Click += new System.EventHandler(this.y11_Click);
             // 
             // y10
             // 
-            resources.ApplyResources(this.y10, "y10");
             this.y10.BackColor = System.Drawing.Color.Aqua;
             this.y10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.y10, "y10");
             this.y10.Name = "y10";
             this.y10.TabStop = false;
             this.y10.Click += new System.EventHandler(this.y10_Click);
             // 
             // y9
             // 
-            resources.ApplyResources(this.y9, "y9");
             this.y9.BackColor = System.Drawing.Color.Yellow;
             this.y9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.y9, "y9");
             this.y9.Name = "y9";
             this.y9.TabStop = false;
             this.y9.Click += new System.EventHandler(this.y9_Click);
             // 
             // y7
             // 
-            resources.ApplyResources(this.y7, "y7");
             this.y7.BackColor = System.Drawing.Color.Lime;
             this.y7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.y7, "y7");
             this.y7.Name = "y7";
             this.y7.TabStop = false;
             this.y7.Click += new System.EventHandler(this.y7_Click);
             // 
             // y5
             // 
-            resources.ApplyResources(this.y5, "y5");
             this.y5.BackColor = System.Drawing.Color.Yellow;
             this.y5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.y5, "y5");
             this.y5.Name = "y5";
             this.y5.TabStop = false;
             this.y5.Click += new System.EventHandler(this.y5_Click);
             // 
             // y6
             // 
-            resources.ApplyResources(this.y6, "y6");
             this.y6.BackColor = System.Drawing.Color.Aqua;
             this.y6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.y6, "y6");
             this.y6.Name = "y6";
             this.y6.TabStop = false;
             this.y6.Click += new System.EventHandler(this.y6_Click);
             // 
             // pictureBox21
             // 
-            resources.ApplyResources(this.pictureBox21, "pictureBox21");
             this.pictureBox21.BackColor = System.Drawing.Color.Black;
             this.pictureBox21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.pictureBox21, "pictureBox21");
             this.pictureBox21.Name = "pictureBox21";
             this.pictureBox21.TabStop = false;
             // 
             // ls4
             // 
-            resources.ApplyResources(this.ls4, "ls4");
             this.ls4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.ls4, "ls4");
             this.ls4.Name = "ls4";
             this.ls4.TabStop = false;
             this.ls4.Click += new System.EventHandler(this.ls4_Click);
             // 
             // gs1
             // 
-            resources.ApplyResources(this.gs1, "gs1");
             this.gs1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.gs1, "gs1");
             this.gs1.Name = "gs1";
             this.gs1.TabStop = false;
             this.gs1.Click += new System.EventHandler(this.gs1_Click);
             // 
             // gs3
             // 
-            resources.ApplyResources(this.gs3, "gs3");
             this.gs3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.gs3, "gs3");
             this.gs3.Name = "gs3";
             this.gs3.TabStop = false;
             this.gs3.Click += new System.EventHandler(this.gs3_Click);
             // 
             // gs2
             // 
-            resources.ApplyResources(this.gs2, "gs2");
             this.gs2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.gs2, "gs2");
             this.gs2.Name = "gs2";
             this.gs2.TabStop = false;
             this.gs2.Click += new System.EventHandler(this.gs2_Click);
             // 
             // gs4
             // 
-            resources.ApplyResources(this.gs4, "gs4");
             this.gs4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.gs4, "gs4");
             this.gs4.Name = "gs4";
             this.gs4.TabStop = false;
             this.gs4.Click += new System.EventHandler(this.gs4_Click);
             // 
             // rs3
             // 
-            resources.ApplyResources(this.rs3, "rs3");
             this.rs3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.rs3, "rs3");
             this.rs3.Name = "rs3";
             this.rs3.TabStop = false;
             this.rs3.Click += new System.EventHandler(this.rs3_Click);
             // 
             // rs1
             // 
-            resources.ApplyResources(this.rs1, "rs1");
             this.rs1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.rs1, "rs1");
             this.rs1.Name = "rs1";
             this.rs1.TabStop = false;
             this.rs1.Click += new System.EventHandler(this.rs1_Click);
             // 
             // rs4
             // 
-            resources.ApplyResources(this.rs4, "rs4");
             this.rs4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.rs4, "rs4");
             this.rs4.Name = "rs4";
             this.rs4.TabStop = false;
             this.rs4.Click += new System.EventHandler(this.rs4_Click);
             // 
             // rs2
             // 
-            resources.ApplyResources(this.rs2, "rs2");
             this.rs2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.rs2, "rs2");
             this.rs2.Name = "rs2";
             this.rs2.TabStop = false;
             this.rs2.Click += new System.EventHandler(this.rs2_Click);
             // 
             // ls2
             // 
-            resources.ApplyResources(this.ls2, "ls2");
             this.ls2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.ls2, "ls2");
             this.ls2.Name = "ls2";
             this.ls2.TabStop = false;
             this.ls2.Click += new System.EventHandler(this.ls2_Click);
             // 
             // ls3
             // 
-            resources.ApplyResources(this.ls3, "ls3");
             this.ls3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.ls3, "ls3");
             this.ls3.Name = "ls3";
             this.ls3.TabStop = false;
             this.ls3.Click += new System.EventHandler(this.ls3_Click);
             // 
             // ls1
             // 
-            resources.ApplyResources(this.ls1, "ls1");
             this.ls1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.ls1, "ls1");
             this.ls1.Name = "ls1";
             this.ls1.TabStop = false;
             this.ls1.Click += new System.EventHandler(this.ls1_Click);
             // 
             // ys4
             // 
-            resources.ApplyResources(this.ys4, "ys4");
             this.ys4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.ys4, "ys4");
             this.ys4.Name = "ys4";
             this.ys4.TabStop = false;
             this.ys4.Click += new System.EventHandler(this.ys4_Click);
             // 
             // ys3
             // 
-            resources.ApplyResources(this.ys3, "ys3");
             this.ys3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.ys3, "ys3");
             this.ys3.Name = "ys3";
             this.ys3.TabStop = false;
             this.ys3.Click += new System.EventHandler(this.ys3_Click);
             // 
             // ys2
             // 
-            resources.ApplyResources(this.ys2, "ys2");
             this.ys2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.ys2, "ys2");
             this.ys2.Name = "ys2";
             this.ys2.TabStop = false;
             this.ys2.Click += new System.EventHandler(this.ys2_Click);
             // 
             // ys1
             // 
-            resources.ApplyResources(this.ys1, "ys1");
             this.ys1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.ys1, "ys1");
             this.ys1.Name = "ys1";
             this.ys1.TabStop = false;
             this.ys1.Click += new System.EventHandler(this.ys1_Click);
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.stepBox);
             this.Controls.Add(this.timerOut);
+            this.Controls.Add(this.stepBox);
             this.Controls.Add(this.p4n);
             this.Controls.Add(this.p3n);
             this.Controls.Add(this.p2n);
@@ -1465,9 +1470,10 @@ namespace flychess
         private System.Windows.Forms.Label p2n;
         private System.Windows.Forms.Label p3n;
         private System.Windows.Forms.Label p4n;
-        private MaterialSkin.Controls.MaterialProgressBar timerOut;
         private System.Windows.Forms.PictureBox stepBox;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ProgressBar timerOut;
+        private System.Windows.Forms.Label label1;
     }
 }
 
