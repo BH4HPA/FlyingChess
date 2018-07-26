@@ -88,17 +88,9 @@ namespace flychess
         public void moveChess(PictureBox pictureBox)
         {
             Console.WriteLine("---MoveChess:Debug---");
-            if (startGame == false)
-            {
-                return;
-            }
-            if (whoGo != whoAm) {
-                return;
-            }
-            if (step == 0)
-            {
-                return;
-            }
+            if (startGame == false) return;
+            if (whoGo != whoAm) return;
+            if (step == 0) return;
             Image chessSet;
             string changePic;
             int chessId;
@@ -110,55 +102,34 @@ namespace flychess
             //MessageBox.Show(step.ToString());
             if (pictureBox.Image == redChess)
             {
-                if (whoAm != 1)
-                {
-                    return;
-                }
+                if (whoAm != 1) return;
                 chessSet = redChess;
-            }
-            else {
+            }else {
                 if (pictureBox.Image == yellowChess)
                 {
-                    if (whoAm != 2)
-                    {
-                        return;
-                    }
+                    if (whoAm != 2) return;
                     chessSet = yellowChess;
                 }
-                else
-                {
+                else{
                     if (pictureBox.Image == blueChess)
                     {
-                        if (whoAm != 3)
-                        {
-                            return;
-                        }
+                        if (whoAm != 3) return;
                         chessSet = blueChess;
-                    }
-                    else
+                    }else
                     {
                         if (pictureBox.Image == greenChess)
                         {
-                            if (whoAm != 4)
-                            {
-                                return;
-                            }
+                            if (whoAm != 4) return;
                             chessSet = greenChess;
                         }
-                        else
-                        {
-                            return;
-                        }
+                        else return;
                     }
                 }
             }
             timer1.Enabled = true;
             if (picid == "s")
             {
-                if(step == 2 | step == 6)
-                {
-                    step = step + 4;
-                }
+                if(step == 2 | step == 6) step = step + 4;
                 changePic = Ray.GetLeft(pictureBox.Name, "s") + (step + 3).ToString();
                 pictureBox.Image = null;
                 object changeo = this.GetType().GetField(changePic, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
@@ -177,8 +148,7 @@ namespace flychess
                     if (int.Parse(picid.Substring(1)) + step < 6)
                     {
                         flyNext = "re" + (int.Parse(picid.Substring(1)) + step).ToString();
-                    }
-                    else {
+                    }else {
                         flyNext = "re" + (int.Parse(picid.Substring(1)) + step - (int.Parse(picid.Substring(1)) + step - 5) * 2).ToString();
                     }
                     pictureBox.Image = null;
@@ -228,8 +198,7 @@ namespace flychess
                 if (int.Parse(picid) + step < 14)
                 {
                     changePic = "r" + (int.Parse(picid) + step).ToString();
-                }
-                else {
+                }else {
                     if (pictureBox.Image == yellowChess)
                     {
                         //折跃
@@ -237,8 +206,7 @@ namespace flychess
                         if (int.Parse(picid) + step - 13 == 1)
                         {
                             changePic = "y1";
-                        }
-                        else
+                        }else
                         {
                             changePic = "ye" + (int.Parse(picid) + step - 14).ToString();
                         }
@@ -267,8 +235,7 @@ namespace flychess
                         if (chessId + 4 < 14)
                         {
                             flyNext = "r" + (chessId + 4).ToString();
-                        }
-                        else
+                        }else
                         {
                             flyNext = "y" + (chessId + 4 - 13).ToString();
                         }
@@ -282,8 +249,7 @@ namespace flychess
                         if (chessId + 4 < 14)
                         {
                             flyNext = "r" + (chessId + 4).ToString();
-                        }
-                        else
+                        }else
                         {
                             flyNext = "y" + (chessId + 4 - 13).ToString();
                         }
@@ -297,8 +263,7 @@ namespace flychess
                         if (chessId + 4 < 14)
                         {
                             flyNext = "r" + (chessId + 4).ToString();
-                        }
-                        else
+                        }else
                         {
                             flyNext = "y" + (chessId + 4 - 13).ToString();
                         }
@@ -312,8 +277,7 @@ namespace flychess
                         if (chessId + 4 < 14)
                         {
                             flyNext = "r" + (chessId + 4).ToString();
-                        }
-                        else
+                        }else
                         {
                             flyNext = "y" + (chessId + 4 - 13).ToString();
                         }
@@ -322,8 +286,7 @@ namespace flychess
                 }
                 checkChess((PictureBox)o);
                 ((PictureBox)o).Image = chessSet;
-            }
-            else
+            }else
             {
                 if (pictureBox.Name.StartsWith("y"))
                 {
@@ -333,8 +296,7 @@ namespace flychess
                         if (int.Parse(picid.Substring(1)) + step < 6)
                         {
                             flyNext = "ye" + (int.Parse(picid.Substring(1)) + step).ToString();
-                        }
-                        else
+                        }else
                         {
                             flyNext = "ye" + (int.Parse(picid.Substring(1)) + step - (int.Parse(picid.Substring(1)) + step - 5) * 2).ToString();
                         }
@@ -386,8 +348,7 @@ namespace flychess
                     if (int.Parse(picid) + step < 14)
                     {
                         changePic = "y" + (int.Parse(picid) + step).ToString();
-                    }
-                    else
+                    }else
                     {
                         if (pictureBox.Image == blueChess)
                         {
@@ -396,8 +357,7 @@ namespace flychess
                             if (int.Parse(picid) + step - 13 == 1)
                             {
                                 changePic = "l1";
-                            }
-                            else
+                            }else
                             {
                                 changePic = "le" + (int.Parse(picid) + step - 14).ToString();
                             }
@@ -425,8 +385,7 @@ namespace flychess
                             if (chessId + 4 < 14)
                             {
                                 flyNext = "y" + (chessId + 4).ToString();
-                            }
-                            else
+                            }else
                             {
                                 flyNext = "l" + (chessId + 4 - 13).ToString();
                             }
@@ -440,8 +399,7 @@ namespace flychess
                             if (chessId + 4 < 14)
                             {
                                 flyNext = "y" + (chessId + 4).ToString();
-                            }
-                            else
+                            }else
                             {
                                 flyNext = "l" + (chessId + 4 - 13).ToString();
                             }
@@ -455,8 +413,7 @@ namespace flychess
                             if (chessId + 4 < 14)
                             {
                                 flyNext = "y" + (chessId + 4).ToString();
-                            }
-                            else
+                            }else
                             {
                                 flyNext = "l" + (chessId + 4 - 13).ToString();
                             }
@@ -470,8 +427,7 @@ namespace flychess
                             if (chessId + 4 < 14)
                             {
                                 flyNext = "y" + (chessId + 4).ToString();
-                            }
-                            else
+                            }else
                             {
                                 flyNext = "l" + (chessId + 4 - 13).ToString();
                             }
@@ -480,8 +436,7 @@ namespace flychess
                     }
                     checkChess((PictureBox)o);
                     ((PictureBox)o).Image = chessSet;
-                }
-                else
+                }else
                 {
                     if (pictureBox.Name.StartsWith("l"))
                     {
@@ -491,8 +446,7 @@ namespace flychess
                             if (int.Parse(picid.Substring(1)) + step < 6)
                             {
                                 flyNext = "le" + (int.Parse(picid.Substring(1)) + step).ToString();
-                            }
-                            else
+                            }else
                             {
                                 flyNext = "le" + (int.Parse(picid.Substring(1)) + step - (int.Parse(picid.Substring(1)) + step - 5) * 2).ToString();
                             }
@@ -538,8 +492,7 @@ namespace flychess
                         if (int.Parse(picid) + step < 14)
                         {
                             changePic = "l" + (int.Parse(picid) + step).ToString();
-                        }
-                        else
+                        }else
                         {
                             if (pictureBox.Image == greenChess)
                             {
@@ -548,8 +501,7 @@ namespace flychess
                                 if (int.Parse(picid) + step - 13 == 1)
                                 {
                                     changePic = "g1";
-                                }
-                                else
+                                }else
                                 {
                                     changePic = "ge" + (int.Parse(picid) + step - 14).ToString();
                                 }
@@ -571,8 +523,7 @@ namespace flychess
                                 if (chessId + 4 < 14)
                                 {
                                     flyNext = "l" + (chessId + 4).ToString();
-                                }
-                                else
+                                }else
                                 {
                                     flyNext = "g" + (chessId + 4 - 13).ToString();
                                 }
@@ -586,8 +537,7 @@ namespace flychess
                                 if (chessId + 4 < 14)
                                 {
                                     flyNext = "l" + (chessId + 4).ToString();
-                                }
-                                else
+                                }else
                                 {
                                     flyNext = "g" + (chessId + 4 - 13).ToString();
                                 }
@@ -601,8 +551,7 @@ namespace flychess
                                 if (chessId + 4 < 14)
                                 {
                                     flyNext = "l" + (chessId + 4).ToString();
-                                }
-                                else
+                                }else
                                 {
                                     flyNext = "g" + (chessId + 4 - 13).ToString();
                                 }
@@ -616,8 +565,7 @@ namespace flychess
                                 if (chessId + 4 < 14)
                                 {
                                     flyNext = "l" + (chessId + 4).ToString();
-                                }
-                                else
+                                }else
                                 {
                                     flyNext = "g" + (chessId + 4 - 13).ToString();
                                 }
@@ -626,8 +574,7 @@ namespace flychess
                         }
                         checkChess((PictureBox)o);
                         ((PictureBox)o).Image = chessSet;
-                    }
-                    else
+                    }else
                     {
                         if (pictureBox.Name.StartsWith("g"))
                         {
@@ -637,8 +584,7 @@ namespace flychess
                                 if (int.Parse(picid.Substring(1)) + step < 6)
                                 {
                                     flyNext = "ge" + (int.Parse(picid.Substring(1)) + step).ToString();
-                                }
-                                else
+                                }else
                                 {
                                     flyNext = "ge" + (int.Parse(picid.Substring(1)) + step - (int.Parse(picid.Substring(1)) + step - 5) * 2).ToString();
                                 }
@@ -684,8 +630,7 @@ namespace flychess
                             if (int.Parse(picid) + step < 14)
                             {
                                 changePic = "g" + (int.Parse(picid) + step).ToString();
-                            }
-                            else
+                            }else
                             {
                                 if (pictureBox.Image == redChess)
                                 {
@@ -694,8 +639,7 @@ namespace flychess
                                     if (int.Parse(picid) + step - 13 == 1)
                                     {
                                         changePic = "r1";
-                                    }
-                                    else
+                                    }else
                                     {
                                         changePic = "re" + (int.Parse(picid) + step - 14).ToString();
                                     }
@@ -717,8 +661,7 @@ namespace flychess
                                     if (chessId + 4 < 14)
                                     {
                                         flyNext = "g" + (chessId + 4).ToString();
-                                    }
-                                    else
+                                    }else
                                     {
                                         flyNext = "r" + (chessId + 4 - 13).ToString();
                                     }
@@ -732,8 +675,7 @@ namespace flychess
                                     if (chessId + 4 < 14)
                                     {
                                         flyNext = "g" + (chessId + 4).ToString();
-                                    }
-                                    else
+                                    }else
                                     {
                                         flyNext = "r" + (chessId + 4 - 13).ToString();
                                     }
@@ -747,8 +689,7 @@ namespace flychess
                                     if (chessId + 4 < 14)
                                     {
                                         flyNext = "g" + (chessId + 4).ToString();
-                                    }
-                                    else
+                                    }else
                                     {
                                         flyNext = "r" + (chessId + 4 - 13).ToString();
                                     }
@@ -762,8 +703,7 @@ namespace flychess
                                     if (chessId + 4 < 14)
                                     {
                                         flyNext = "g" + (chessId + 4).ToString();
-                                    }
-                                    else
+                                    }else
                                     {
                                         flyNext = "r" + (chessId + 4 - 13).ToString();
                                     }
@@ -772,8 +712,7 @@ namespace flychess
                             }
                             checkChess((PictureBox)o);
                             ((PictureBox)o).Image = chessSet;
-                        }
-                        else
+                        }else
                         {
                             return;
                         }
