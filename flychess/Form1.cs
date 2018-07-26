@@ -34,8 +34,18 @@ namespace flychess
         int redStart,yellowStart,blueStart,greenStart;
         int redInt,yellowInt,blueInt,greenInt;
         int step = 0;
+        public static Form1 form1;
         //挂接socket线程
         Socket socketClient = new Socket(SocketType.Stream, ProtocolType.Tcp);
+        public Form1()
+        {
+            InitializeComponent();
+            form1 = this;
+        }
+        public void startMatch_n(string whoAmI)
+        {
+            startMatch(whoAmI);
+        }
         public void startMatch(string whoAmI)
         {
             rs1.Image = redChess;
@@ -62,17 +72,17 @@ namespace flychess
             whoGo = 1;
             whoAm = int.Parse(whoAmI);
             timer1.Enabled = true;
-            if(whoAm == 1) status.Text = "已开局，请开始您的操作。";
+            if (whoAm == 1) status.Text = "已开局，请开始您的操作。";
             else status.Text = "已开局，等待他人操作。";
         }
-        public Form1()
+
+        private void Form1_Load(object sender, EventArgs e)
         {
-            InitializeComponent();
             timerOut.Value = 0;
 
             //挂接socket线程
             IPAddress ip = IPAddress.Parse("140.143.235.48");
-            IPEndPoint point = new IPEndPoint(ip, 33351);
+            IPEndPoint point = new IPEndPoint(ip, 33371);
             //进行连接
             socketClient.Connect(point);
 
@@ -81,11 +91,6 @@ namespace flychess
             thread.IsBackground = true;
             thread.Start(socketClient);
             socketClient.Send(Encoding.UTF8.GetBytes($"ready"));
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void y11_Click(object sender, EventArgs e)
@@ -1538,7 +1543,8 @@ namespace flychess
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //socketClient.Close();
+            Application.ExitThread();
+            socketClient.Close();
         }
 
         public void leftMember(string Member)
@@ -1710,16 +1716,15 @@ namespace flychess
                     break;
                 }
                 var str = Encoding.UTF8.GetString(buffer, 0, effective);
-                Console.WriteLine("socket返回：" + str);
-                var form1 = new Form1();
-                
-                if (str.Contains("start")) { form1.startMatch(Ray.Between(str, "start[", "]")); return; }
-                if (str.Contains("moveChess")) { form1.moveChess_n(Ray.Between(str, "moveChess[", "]")); return; }
-                if (str.Contains("goChess")) { form1.moveChess_n(Ray.Between(str, "goChess[", "]")); return; }
-                if (str.Contains("step")) { form1.stepChange(Ray.Between(str, "step[", "]")); return; }
-                if (str.Contains("left")) { form1.leftMember(Ray.Between(str, "left[", "]")); return; }
                 //处理消息
-
+                Console.WriteLine("socket返回：" + str);
+                //var form1 = new Form1();
+                if (str.Contains("start")) { Form1.form1.startMatch_n(Ray.Between(str, "start[", "]")); }
+                if (str.Contains("moveChess")) { Form1.form1.moveChess_n(Ray.Between(str, "moveChess[", "]")); }
+                if (str.Contains("goChess")) { Form1.form1.moveChess_n(Ray.Between(str, "goChess[", "]")); }
+                if (str.Contains("step")) { Form1.form1.stepChange(Ray.Between(str, "step[", "]")); }
+                if (str.Contains("left")) { Form1.form1.leftMember(Ray.GetLeft(str, "left")); }
+                Console.WriteLine("处理完毕");
             }
         }
         /// <summary>
