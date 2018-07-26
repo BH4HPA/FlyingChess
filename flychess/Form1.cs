@@ -28,19 +28,16 @@ namespace flychess
         public Image step5 = ((Image)(rm.GetObject("step5")));
         public Image step6 = ((Image)(rm.GetObject("step6")));
         //常量与变量
-        bool startGame = true;
-        int whoGo = 1;
-        int whoAm = 1;
+        bool startGame;
+        int whoGo;
+        int whoAm;
         int redStart,yellowStart,blueStart,greenStart;
         int redInt,yellowInt,blueInt,greenInt;
         int step = 0;
         //挂接socket线程
         Socket socketClient = new Socket(SocketType.Stream, ProtocolType.Tcp);
-        public Form1()
+        public void startMatch(string whoAmI)
         {
-            InitializeComponent();
-            timerOut.Value = 0;
-            
             rs1.Image = redChess;
             rs2.Image = redChess;
             rs3.Image = redChess;
@@ -57,10 +54,21 @@ namespace flychess
             gs2.Image = greenChess;
             gs3.Image = greenChess;
             gs4.Image = greenChess;
+            startGame = true;
             redInt = 4;
             yellowInt = 4;
             blueInt = 4;
             greenInt = 4;
+            whoGo = 1;
+            whoAm = int.Parse(whoAmI);
+            timer1.Enabled = true;
+            if(whoAm == 1) status.Text = "已开局，请开始您的操作。";
+            else status.Text = "已开局，等待他人操作。";
+        }
+        public Form1()
+        {
+            InitializeComponent();
+            timerOut.Value = 0;
 
             //挂接socket线程
             IPAddress ip = IPAddress.Parse("140.143.235.48");
@@ -72,8 +80,7 @@ namespace flychess
             Thread thread = new Thread(Ray.Recive);
             thread.IsBackground = true;
             thread.Start(socketClient);
-            var buffter = Encoding.UTF8.GetBytes($"ready");
-            var temp = socketClient.Send(buffter);
+            socketClient.Send(Encoding.UTF8.GetBytes($"ready"));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -90,7 +97,13 @@ namespace flychess
             if (startGame == false) return;
             if (whoGo != whoAm) return;
             if (step == 0) return;
+            socketClient.Send(Encoding.UTF8.GetBytes($"moveChess[{pictureBox.Name}]"));
             moveChess(pictureBox);
+        }
+        public void moveChess_n(string picName)
+        {
+            object change = this.GetType().GetField(picName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
+            moveChess((PictureBox)change);
         }
         public void moveChess(PictureBox pictureBox)
         {
@@ -735,7 +748,7 @@ namespace flychess
             {
                 whoGo = 1;
             }
-            whoAm = whoGo;
+            //whoAm = whoGo;
             if(whoGo == 1 & redInt == 0)
             {
                 whoGo = whoGo + 1;
@@ -743,7 +756,7 @@ namespace flychess
                 {
                     whoGo = 1;
                 }
-                whoAm = whoGo;
+                //whoAm = whoGo;
             }
             if (whoGo == 2 & yellowInt == 0)
             {
@@ -752,7 +765,7 @@ namespace flychess
                 {
                     whoGo = 1;
                 }
-                whoAm = whoGo;
+                //whoAm = whoGo;
             }
             if (whoGo == 3 & blueInt == 0)
             {
@@ -761,7 +774,7 @@ namespace flychess
                 {
                     whoGo = 1;
                 }
-                whoAm = whoGo;
+                //whoAm = whoGo;
             }
             if (whoGo == 4 & greenInt == 0)
             {
@@ -770,7 +783,7 @@ namespace flychess
                 {
                     whoGo = 1;
                 }
-                whoAm = whoGo;
+                //whoAm = whoGo;
             }
             if(redInt == 0 & yellowInt == 0 & blueInt == 0 & greenInt == 0)
             {
@@ -778,6 +791,8 @@ namespace flychess
                 startGame = false;
                 whoGo = 0;
             }
+            if (whoAm == whoGo) status.Text = "请开始您的操作。";
+            else status.Text = "等待他人操作。";
             timer1.Enabled = true;
         }
         void putEndChess(string startStr,Image chessImage)
@@ -816,7 +831,13 @@ namespace flychess
             if (startGame == false)return;
             if (whoGo != whoAm) return;
             if (step == 0) return;
+            socketClient.Send(Encoding.UTF8.GetBytes($"goChess[{pictureBox.Name}]"));
             goChess(pictureBox);
+        }
+        public void goChess_n(string picName)
+        {
+            object change = this.GetType().GetField(picName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
+            goChess((PictureBox)change);
         }
         public void goChess(PictureBox pictureBox)
         {
@@ -1343,7 +1364,82 @@ namespace flychess
         {
             goChess_p((PictureBox)sender);
         }
-
+        public void stepChange(string stepC)
+        {
+            step = int.Parse(stepC);
+            if (step == 1)
+            {
+                stepBox.Image = step1;
+            }
+            else
+            {
+                if (step == 2)
+                {
+                    stepBox.Image = step2;
+                }
+                else
+                {
+                    if (step == 3)
+                    {
+                        stepBox.Image = step3;
+                    }
+                    else
+                    {
+                        if (step == 4)
+                        {
+                            stepBox.Image = step4;
+                        }
+                        else
+                        {
+                            if (step == 5)
+                            {
+                                stepBox.Image = step5;
+                            }
+                            else
+                            {
+                                stepBox.Image = step6;
+                            }
+                        }
+                    }
+                }
+            }
+            if (whoAm == 1)
+            {
+                stepBox.BackColor = Color.Red;
+            }
+            if (whoAm == 2)
+            {
+                stepBox.BackColor = Color.Yellow;
+            }
+            if (whoAm == 3)
+            {
+                stepBox.BackColor = Color.Aqua;
+            }
+            if (whoAm == 4)
+            {
+                stepBox.BackColor = Color.Lime;
+            }
+            if (whoAm == 1 & redStart == 0 & step < 5)
+            {
+                nextMove();
+                return;
+            }
+            if (whoAm == 2 & yellowStart == 0 & step < 5)
+            {
+                nextMove();
+                return;
+            }
+            if (whoAm == 3 & blueStart == 0 & step < 5)
+            {
+                nextMove();
+                return;
+            }
+            if (whoAm == 4 & greenStart == 0 & step < 5)
+            {
+                nextMove();
+                return;
+            }
+        }
         private void pictureBox5_Click(object sender, EventArgs e)
         {
             if (startGame == false)
@@ -1360,6 +1456,7 @@ namespace flychess
             }
             Random rd = new Random();
             step = rd.Next(1, 6);
+            socketClient.Send(Encoding.UTF8.GetBytes($"step[{step.ToString()}]"));
             if (step == 1)
             {
                 stepBox.Image = step1;
@@ -1433,6 +1530,25 @@ namespace flychess
             }
         }
 
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (startGame) if (MessageBox.Show("当前正在游戏中，您真的要退出么？", "飞行棋", MessageBoxButtons.YesNo) == DialogResult.No) { e.Cancel = true; return; }
+            socketClient.Send(Encoding.UTF8.GetBytes($"left{whoAm.ToString()}"));
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //socketClient.Close();
+        }
+
+        public void leftMember(string Member)
+        {
+            if (!startGame) return;
+            if (Member == "1") redStart = 0;
+            if (Member == "2") yellowStart = 0;
+            if (Member == "3") blueStart = 0;
+            if (Member == "4") greenStart = 0;
+        }
         private void rs_Click(object sender, EventArgs e)
         {
             moveChess_p((PictureBox)sender);
@@ -1595,6 +1711,13 @@ namespace flychess
                 }
                 var str = Encoding.UTF8.GetString(buffer, 0, effective);
                 Console.WriteLine("socket返回：" + str);
+                var form1 = new Form1();
+                
+                if (str.Contains("start")) { form1.startMatch(Ray.Between(str, "start[", "]")); return; }
+                if (str.Contains("moveChess")) { form1.moveChess_n(Ray.Between(str, "moveChess[", "]")); return; }
+                if (str.Contains("goChess")) { form1.moveChess_n(Ray.Between(str, "goChess[", "]")); return; }
+                if (str.Contains("step")) { form1.stepChange(Ray.Between(str, "step[", "]")); return; }
+                if (str.Contains("left")) { form1.leftMember(Ray.Between(str, "left[", "]")); return; }
                 //处理消息
 
             }

@@ -146,51 +146,6 @@
   <data name="&gt;&gt;p1n.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
-  <data name="&gt;&gt;status.Name" xml:space="preserve">
-    <value>status</value>
-  </data>
-  <data name="&gt;&gt;status.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;status.Parent" xml:space="preserve">
-    <value>statusUnder</value>
-  </data>
-  <data name="&gt;&gt;status.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>statusUnder</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="statusUnder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-10, 415</value>
-  </data>
-  <data name="statusUnder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>524, 30</value>
-  </data>
-  <data name="statusUnder.TabIndex" type="System.Int32, mscorlib">
-    <value>199</value>
-  </data>
-  <data name="&gt;&gt;statusUnder.Name" xml:space="preserve">
-    <value>statusUnder</value>
-  </data>
-  <data name="&gt;&gt;statusUnder.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;statusUnder.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;statusUnder.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
   <data name="status.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -198,13 +153,13 @@
     <value>8, 12</value>
   </data>
   <data name="status.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 12</value>
+    <value>89, 12</value>
   </data>
   <data name="status.TabIndex" type="System.Int32, mscorlib">
     <value>201</value>
   </data>
   <data name="status.Text" xml:space="preserve">
-    <value>请等待其他人操作...</value>
+    <value>正在等待开局..</value>
   </data>
   <data name="&gt;&gt;status.Name" xml:space="preserve">
     <value>status</value>
@@ -244,6 +199,27 @@
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="statusUnder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-10, 415</value>
+  </data>
+  <data name="statusUnder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>524, 30</value>
+  </data>
+  <data name="statusUnder.TabIndex" type="System.Int32, mscorlib">
+    <value>199</value>
+  </data>
+  <data name="&gt;&gt;statusUnder.Name" xml:space="preserve">
+    <value>statusUnder</value>
+  </data>
+  <data name="&gt;&gt;statusUnder.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusUnder.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;statusUnder.ZOrder" xml:space="preserve">
+    <value>8</value>
   </data>
   <data name="p2n.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
