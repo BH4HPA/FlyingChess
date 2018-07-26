@@ -34,13 +34,19 @@ namespace flychess
         int redStart,yellowStart,blueStart,greenStart;
         int redInt,yellowInt,blueInt,greenInt;
         int step = 0;
+        string[] args = null;
         public static Form1 form1;
         //挂接socket线程
         Socket socketClient = new Socket(SocketType.Stream, ProtocolType.Tcp);
-        public Form1()
+        IPEndPoint point;
+
+
+        public Form1(string[] args)
         {
             InitializeComponent();
             form1 = this;
+            this.args = args;
+            point = new IPEndPoint(IPAddress.Parse(args[1]), int.Parse (args[3]));
         }
         public void startMatch_n(string whoAmI)
         {
@@ -71,9 +77,9 @@ namespace flychess
             greenInt = 4;
             whoGo = 1;
             whoAm = int.Parse(whoAmI);
-            timer1.Enabled = true;
-            if (whoAm == 1) status.Text = "已开局，请开始您的操作。";
-            else status.Text = "已开局，等待他人操作。";
+            
+            if (whoAm == 1) status.Invoke((MethodInvoker)delegate { status.Text = ("已开局，本轮从您开始操作.."); });
+            else status.Invoke((MethodInvoker)delegate { status.Text = ("已开局，请等待他人开始操作.."); });
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -81,10 +87,9 @@ namespace flychess
             timerOut.Value = 0;
 
             //挂接socket线程
-            IPAddress ip = IPAddress.Parse("140.143.235.48");
-            IPEndPoint point = new IPEndPoint(ip, 33371);
             //进行连接
-            socketClient.Connect(point);
+            try { socketClient.Connect(point); }
+            catch { MessageBox.Show("无法连接至服务器"); System.Environment.Exit(0); }
 
             //不停的接收服务器端发送的消息
             Thread thread = new Thread(Ray.Recive);
@@ -102,6 +107,32 @@ namespace flychess
             if (startGame == false) return;
             if (whoGo != whoAm) return;
             if (step == 0) return;
+            if (pictureBox.Image == redChess)
+            {
+                if (whoAm != 1) return;
+            }
+            else
+            {
+                if (pictureBox.Image == yellowChess)
+                {
+                    if (whoAm != 2) return;
+                }
+                else
+                {
+                    if (pictureBox.Image == blueChess)
+                    {
+                        if (whoAm != 3) return;
+                    }
+                    else
+                    {
+                        if (pictureBox.Image == greenChess)
+                        {
+                            if (whoAm != 4) return;
+                        }
+                        else return;
+                    }
+                }
+            }
             socketClient.Send(Encoding.UTF8.GetBytes($"moveChess[{pictureBox.Name}]"));
             moveChess(pictureBox);
         }
@@ -124,24 +155,20 @@ namespace flychess
             //MessageBox.Show(step.ToString());
             if (pictureBox.Image == redChess)
             {
-                if (whoAm != 1) return;
                 chessSet = redChess;
             }else {
                 if (pictureBox.Image == yellowChess)
                 {
-                    if (whoAm != 2) return;
                     chessSet = yellowChess;
                 }
                 else{
                     if (pictureBox.Image == blueChess)
                     {
-                        if (whoAm != 3) return;
                         chessSet = blueChess;
                     }else
                     {
                         if (pictureBox.Image == greenChess)
                         {
-                            if (whoAm != 4) return;
                             chessSet = greenChess;
                         }
                         else return;
@@ -190,10 +217,6 @@ namespace flychess
                     nextMove();
                     return;
                 }
-                if (int.Parse(picid) == 8 & chessSet == greenChess)
-                {
-                    step = step + 12;
-                }
                 if (int.Parse(picid) == 1)
                 {
                     if (pictureBox.Image == redChess) {
@@ -216,6 +239,10 @@ namespace flychess
                         nextMove();
                         return;
                     }
+                }
+                if (int.Parse(picid) + step == 8 & chessSet == greenChess)
+                {
+                    step = step + 8;
                 }
                 if (int.Parse(picid) + step < 14)
                 {
@@ -339,10 +366,6 @@ namespace flychess
                         nextMove();
                         return;
                     }
-                    if (int.Parse(picid) == 8 & chessSet == redChess)
-                    {
-                        step = step + 12;
-                    }
                     if (int.Parse(picid) == 1)
                     {
                         if (pictureBox.Image == yellowChess)
@@ -366,6 +389,10 @@ namespace flychess
                             nextMove();
                             return;
                         }
+                    }
+                    if (int.Parse(picid) + step == 8 & chessSet == redChess)
+                    {
+                        step = step + 8;
                     }
                     if (int.Parse(picid) + step < 14)
                     {
@@ -486,10 +513,6 @@ namespace flychess
                             nextMove();
                             return;
                         }
-                        if (int.Parse(picid) == 8 & chessSet == yellowChess)
-                        {
-                            step = step + 12;
-                        }
                         if (int.Parse(picid) == 1)
                         {
                             if (pictureBox.Image == blueChess)
@@ -510,6 +533,10 @@ namespace flychess
                                 nextMove();
                                 return;
                             }
+                        }
+                        if (int.Parse(picid) + step == 8 & chessSet == yellowChess)
+                        {
+                            step = step + 8;
                         }
                         if (int.Parse(picid) + step < 14)
                         {
@@ -624,10 +651,6 @@ namespace flychess
                                 nextMove();
                                 return;
                             }
-                            if (int.Parse(picid) == 8 & chessSet == blueChess)
-                            {
-                                step = step + 12;
-                            }
                             if (int.Parse(picid) == 1)
                             {
                                 if (pictureBox.Image == greenChess)
@@ -648,6 +671,10 @@ namespace flychess
                                     nextMove();
                                     return;
                                 }
+                            }
+                            if (int.Parse(picid) + step == 8 & chessSet == blueChess)
+                            {
+                                step = step + 8;
                             }
                             if (int.Parse(picid) + step < 14)
                             {
@@ -745,8 +772,8 @@ namespace flychess
         }
         void nextMove()
         {
-            timer1.Enabled = false;
-            timerOut.Value = 0;
+            timerOut.Invoke((MethodInvoker)delegate { timer1.Enabled = false; });
+            timerOut.Invoke((MethodInvoker)delegate { timerOut.Value = 0; });
             step = 0;
             whoGo = whoGo + 1;
             if (whoGo == 5)
@@ -790,15 +817,32 @@ namespace flychess
                 }
                 //whoAm = whoGo;
             }
-            if(redInt == 0 & yellowInt == 0 & blueInt == 0 & greenInt == 0)
+            if(whoGo == 1 & redStart == -1)
+            {
+                whoGo = 2;
+            }
+            if (whoGo == 2 & yellowStart == -1)
+            {
+                whoGo = 3;
+            }
+            if (whoGo == 3 & blueStart == -1)
+            {
+                whoGo = 4;
+            }
+            if (whoGo == 4 & greenStart == -1)
+            {
+                whoGo = 1;
+            }
+            if (redInt == 0 & yellowInt == 0 & blueInt == 0 & greenInt == 0)
             {
                 MessageBox.Show ("游戏结束。");
                 startGame = false;
                 whoGo = 0;
+                System.Environment.Exit(0);
             }
-            if (whoAm == whoGo) status.Text = "请开始您的操作。";
-            else status.Text = "等待他人操作。";
-            timer1.Enabled = true;
+            if (whoAm == whoGo) status.Invoke((MethodInvoker)delegate { status.Text = ("请开始您的操作"); });
+            else status.Invoke((MethodInvoker)delegate { status.Text = ("等待他人操作"); });
+            timerOut.Invoke((MethodInvoker)delegate { timer1.Enabled = true; });
         }
         void putEndChess(string startStr,Image chessImage)
         {
@@ -1371,6 +1415,7 @@ namespace flychess
         }
         public void stepChange(string stepC)
         {
+
             step = int.Parse(stepC);
             if (step == 1)
             {
@@ -1408,38 +1453,38 @@ namespace flychess
                     }
                 }
             }
-            if (whoAm == 1)
+            if (whoGo == 1)
             {
                 stepBox.BackColor = Color.Red;
             }
-            if (whoAm == 2)
+            if (whoGo == 2)
             {
                 stepBox.BackColor = Color.Yellow;
             }
-            if (whoAm == 3)
+            if (whoGo == 3)
             {
                 stepBox.BackColor = Color.Aqua;
             }
-            if (whoAm == 4)
+            if (whoGo == 4)
             {
                 stepBox.BackColor = Color.Lime;
             }
-            if (whoAm == 1 & redStart == 0 & step < 5)
+            if (whoGo == 1 & redStart == 0 & step < 5)
             {
                 nextMove();
                 return;
             }
-            if (whoAm == 2 & yellowStart == 0 & step < 5)
+            if (whoGo == 2 & yellowStart == 0 & step < 5)
             {
                 nextMove();
                 return;
             }
-            if (whoAm == 3 & blueStart == 0 & step < 5)
+            if (whoGo == 3 & blueStart == 0 & step < 5)
             {
                 nextMove();
                 return;
             }
-            if (whoAm == 4 & greenStart == 0 & step < 5)
+            if (whoGo == 4 & greenStart == 0 & step < 5)
             {
                 nextMove();
                 return;
@@ -1543,17 +1588,16 @@ namespace flychess
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.ExitThread();
             socketClient.Close();
         }
 
         public void leftMember(string Member)
         {
             if (!startGame) return;
-            if (Member == "1") redStart = 0;
-            if (Member == "2") yellowStart = 0;
-            if (Member == "3") blueStart = 0;
-            if (Member == "4") greenStart = 0;
+            if (Member == "1") redStart = -1;
+            if (Member == "2") yellowStart = -1;
+            if (Member == "3") blueStart = -1;
+            if (Member == "4") greenStart = -1;
         }
         private void rs_Click(object sender, EventArgs e)
         {
@@ -1577,6 +1621,7 @@ namespace flychess
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (!startGame) return;
             timerOut.Value = timerOut.Value + 1;
             if (timerOut.Value == timerOut.Maximum)
             {
@@ -1708,23 +1753,26 @@ namespace flychess
             var send = o as Socket;
             while (true)
             {
-                //获取发送过来的消息
-                byte[] buffer = new byte[1024 * 1024 * 2];
-                var effective = send.Receive(buffer);
-                if (effective == 0)
-                {
-                    break;
-                }
-                var str = Encoding.UTF8.GetString(buffer, 0, effective);
-                //处理消息
-                Console.WriteLine("socket返回：" + str);
-                //var form1 = new Form1();
-                if (str.Contains("start")) { Form1.form1.startMatch_n(Ray.Between(str, "start[", "]")); }
-                if (str.Contains("moveChess")) { Form1.form1.moveChess_n(Ray.Between(str, "moveChess[", "]")); }
-                if (str.Contains("goChess")) { Form1.form1.moveChess_n(Ray.Between(str, "goChess[", "]")); }
-                if (str.Contains("step")) { Form1.form1.stepChange(Ray.Between(str, "step[", "]")); }
-                if (str.Contains("left")) { Form1.form1.leftMember(Ray.GetLeft(str, "left")); }
-                Console.WriteLine("处理完毕");
+                try{
+                    //获取发送过来的消息
+                    byte[] buffer = new byte[20];
+                    var effective = send.Receive(buffer);
+                    if (effective == 0)
+                    {
+                        break;
+                    }
+                    var str = Encoding.UTF8.GetString(buffer, 0, effective);
+                    //处理消息
+                    Console.WriteLine("socket返回：" + str);
+                    //var form1 = new Form1();
+                    if (str.Contains("start")) { Form1.form1.startMatch_n(Ray.Between(str, "start[", "]")); }
+                    if (str.Contains("moveChess")) { Form1.form1.moveChess_n(Ray.Between(str, "moveChess[", "]")); }
+                    if (str.Contains("goChess")) { Form1.form1.goChess_n(Ray.Between(str, "goChess[", "]")); }
+                    if (str.Contains("step")) { Form1.form1.stepChange(Ray.Between(str, "step[", "]")); }
+                    if (str.Contains("left")) { Form1.form1.leftMember(Ray.GetLeft(str, "left")); }
+                    if (str.Contains("full")) { System.Environment.Exit(0); }
+                    Console.WriteLine("处理完毕");
+                }catch { }
             }
         }
         /// <summary>
