@@ -1463,21 +1463,21 @@ namespace flychess
             {
                 stepBox.BackColor = Color.Lime;
             }
-            if (whoAm == 1 & redStart == 4 & step < 5) {
+            if (whoAm == 1 & redStart == 0 & step < 5) {
                 nextMove();
                 return;
             }
-            if (whoAm == 2 & yellowStart == 4 & step < 5)
+            if (whoAm == 2 & yellowStart == 0 & step < 5)
             {
                 nextMove();
                 return;
             }
-            if (whoAm == 3 & blueStart == 4 & step < 5)
+            if (whoAm == 3 & blueStart == 0 & step < 5)
             {
                 nextMove();
                 return;
             }
-            if (whoAm == 4 & greenStart == 4 & step < 5)
+            if (whoAm == 4 & greenStart == 0 & step < 5)
             {
                 nextMove();
                 return;
