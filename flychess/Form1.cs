@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Resources;
@@ -35,14 +31,8 @@ namespace flychess
         bool startGame = true;
         int whoGo = 1;
         int whoAm = 1;
-        int redStart;
-        int yellowStart;
-        int blueStart;
-        int greenStart;
-        int redInt;
-        int yellowInt;
-        int blueInt;
-        int greenInt;
+        int redStart,yellowStart,blueStart,greenStart;
+        int redInt,yellowInt,blueInt,greenInt;
         int step = 0;
         //挂接socket线程
         Socket socketClient = new Socket(SocketType.Stream, ProtocolType.Tcp);
@@ -67,10 +57,10 @@ namespace flychess
             gs2.Image = greenChess;
             gs3.Image = greenChess;
             gs4.Image = greenChess;
-            redInt = 1;
-            yellowInt = 1;
-            blueInt = 1;
-            greenInt = 1;
+            redInt = 4;
+            yellowInt = 4;
+            blueInt = 4;
+            greenInt = 4;
 
             //挂接socket线程
             IPAddress ip = IPAddress.Parse("140.143.235.48");
@@ -97,6 +87,7 @@ namespace flychess
         }
         public void moveChess(PictureBox pictureBox)
         {
+            Console.WriteLine("---MoveChess:Debug---");
             if (startGame == false)
             {
                 return;
@@ -113,6 +104,8 @@ namespace flychess
             int chessId;
             string flyNext;
             string picid = pictureBox.Name.Substring(1);
+            Console.WriteLine($"pictureName : {pictureBox.Name}");
+            Console.WriteLine($"pictureId : {picid}");
             Random rd = new Random();
             //MessageBox.Show(step.ToString());
             if (pictureBox.Image == redChess)
@@ -171,6 +164,9 @@ namespace flychess
                 object changeo = this.GetType().GetField(changePic, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                 checkChess((PictureBox)changeo);
                 ((PictureBox)changeo).Image = chessSet;
+                Console.WriteLine($"step : {step}");
+                Console.WriteLine($"changeO : {((PictureBox)changeo).Name}");
+                Console.WriteLine("---MoveChessEnd---");
                 nextMove();
                 return;
             }
@@ -196,10 +192,13 @@ namespace flychess
                         putEndChess("rs", chessSet);
                         redInt = redInt - 1;
                     }
+                    Console.WriteLine($"step : {step}");
+                    Console.WriteLine($"changeO : {((PictureBox)changeo).Name}");
+                    Console.WriteLine("---MoveChessEnd---");
                     nextMove();
                     return;
                 }
-                if (int.Parse(picid) == 12)
+                if (int.Parse(picid) == 8 & chessSet == greenChess)
                 {
                     step = step + 12;
                 }
@@ -219,6 +218,9 @@ namespace flychess
                             putEndChess("rs", chessSet);
                             redInt = redInt - 1;
                         }
+                        Console.WriteLine($"step : {step}");
+                        Console.WriteLine($"change : {((PictureBox)change).Name}");
+                        Console.WriteLine("---MoveChessEnd---");
                         nextMove();
                         return;
                     }
@@ -243,17 +245,21 @@ namespace flychess
                         object change = this.GetType().GetField(changePic, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                         checkChess((PictureBox)change);
                         ((PictureBox)change).Image = chessSet;
+                        Console.WriteLine($"step : {step}");
+                        Console.WriteLine($"change : {((PictureBox)change).Name}");
+                        Console.WriteLine("---MoveChessEnd---");
                         nextMove();
                         return;
                     }
                     changePic = "y" + (int.Parse(picid) + step - 13).ToString();
                 }
                 chessId = int.Parse(picid) + step;
-                Console.WriteLine(changePic);
                 int colorid = int.Parse(picid) % 4;
                 pictureBox.Image = null;
-                Console.WriteLine(changePic);
                 object o = this.GetType().GetField(changePic, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
+                Console.WriteLine($"step : {step}");
+                Console.WriteLine($"changePic : {changePic}");
+                Console.WriteLine("---MoveChessEnd---");
                 if (chessSet == redChess)
                 {
                     if (((PictureBox)o).BackColor == Color.Red)
@@ -266,7 +272,6 @@ namespace flychess
                         {
                             flyNext = "y" + (chessId + 4 - 13).ToString();
                         }
-                        Console.WriteLine(flyNext);
                         o = this.GetType().GetField(flyNext, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                     }
                 }
@@ -282,7 +287,6 @@ namespace flychess
                         {
                             flyNext = "y" + (chessId + 4 - 13).ToString();
                         }
-                        Console.WriteLine(flyNext);
                         o = this.GetType().GetField(flyNext, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                     }
                 }
@@ -298,7 +302,6 @@ namespace flychess
                         {
                             flyNext = "y" + (chessId + 4 - 13).ToString();
                         }
-                        Console.WriteLine(flyNext);
                         o = this.GetType().GetField(flyNext, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                     }
                 }
@@ -314,7 +317,6 @@ namespace flychess
                         {
                             flyNext = "y" + (chessId + 4 - 13).ToString();
                         }
-                        Console.WriteLine(flyNext);
                         o = this.GetType().GetField(flyNext, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                     }
                 }
@@ -346,9 +348,16 @@ namespace flychess
                             ((PictureBox)changeo).Image = null;
                             putEndChess("ys", chessSet);
                             yellowInt = yellowInt - 1;
+                            Console.WriteLine($"step : {step}");
+                            Console.WriteLine($"changeo : {changeo}");
+                            Console.WriteLine("---MoveChessEnd---");
                         }
                         nextMove();
                         return;
+                    }
+                    if (int.Parse(picid) == 8 & chessSet == redChess)
+                    {
+                        step = step + 12;
                     }
                     if (int.Parse(picid) == 1)
                     {
@@ -366,6 +375,9 @@ namespace flychess
                                 ((PictureBox)change).Image = null;
                                 putEndChess("ys", chessSet);
                                 yellowInt = yellowInt - 1;
+                                Console.WriteLine($"step : {step}");
+                                Console.WriteLine($"change : {change}");
+                                Console.WriteLine("---MoveChessEnd---");
                             }
                             nextMove();
                             return;
@@ -392,15 +404,20 @@ namespace flychess
                             object change = this.GetType().GetField(changePic, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                             checkChess((PictureBox)change);
                             ((PictureBox)change).Image = chessSet;
+                            Console.WriteLine($"step : {step}");
+                            Console.WriteLine($"change : {change}");
+                            Console.WriteLine("---MoveChessEnd---");
                             nextMove();
                             return;
                         }
                         changePic = "l" + (int.Parse(picid) + step - 13).ToString();
                     }
                     chessId = int.Parse(picid) + step;
-                    Console.WriteLine("change" + changePic);
                     pictureBox.Image = null;
                     object o = this.GetType().GetField(changePic, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
+                    Console.WriteLine($"step : {step}");
+                    Console.WriteLine($"changePic : {changePic}");
+                    Console.WriteLine("---MoveChessEnd---");
                     if (chessSet == redChess)
                     {
                         if (((PictureBox)o).BackColor == Color.Red)
@@ -413,7 +430,6 @@ namespace flychess
                             {
                                 flyNext = "l" + (chessId + 4 - 13).ToString();
                             }
-                            Console.WriteLine(flyNext);
                             o = this.GetType().GetField(flyNext, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                         }
                     }
@@ -429,7 +445,6 @@ namespace flychess
                             {
                                 flyNext = "l" + (chessId + 4 - 13).ToString();
                             }
-                            Console.WriteLine(flyNext);
                             o = this.GetType().GetField(flyNext, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                         }
                     }
@@ -445,7 +460,6 @@ namespace flychess
                             {
                                 flyNext = "l" + (chessId + 4 - 13).ToString();
                             }
-                            Console.WriteLine(flyNext);
                             o = this.GetType().GetField(flyNext, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                         }
                     }
@@ -461,7 +475,6 @@ namespace flychess
                             {
                                 flyNext = "l" + (chessId + 4 - 13).ToString();
                             }
-                            Console.WriteLine(flyNext);
                             o = this.GetType().GetField(flyNext, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                         }
                     }
@@ -496,6 +509,10 @@ namespace flychess
                             }
                             nextMove();
                             return;
+                        }
+                        if (int.Parse(picid) == 8 & chessSet == yellowChess)
+                        {
+                            step = step + 12;
                         }
                         if (int.Parse(picid) == 1)
                         {
@@ -545,7 +562,6 @@ namespace flychess
                             changePic = "g" + (int.Parse(picid) + step - 13).ToString();
                         }
                         chessId = int.Parse(picid) + step;
-                        Console.WriteLine(changePic);
                         pictureBox.Image = null;
                         object o = this.GetType().GetField(changePic, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                         if (chessSet == redChess)
@@ -560,7 +576,6 @@ namespace flychess
                                 {
                                     flyNext = "g" + (chessId + 4 - 13).ToString();
                                 }
-                                Console.WriteLine(flyNext);
                                 o = this.GetType().GetField(flyNext, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                             }
                         }
@@ -576,7 +591,6 @@ namespace flychess
                                 {
                                     flyNext = "g" + (chessId + 4 - 13).ToString();
                                 }
-                                Console.WriteLine(flyNext);
                                 o = this.GetType().GetField(flyNext, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                             }
                         }
@@ -592,7 +606,6 @@ namespace flychess
                                 {
                                     flyNext = "g" + (chessId + 4 - 13).ToString();
                                 }
-                                Console.WriteLine(flyNext);
                                 o = this.GetType().GetField(flyNext, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                             }
                         }
@@ -608,7 +621,6 @@ namespace flychess
                                 {
                                     flyNext = "g" + (chessId + 4 - 13).ToString();
                                 }
-                                Console.WriteLine(flyNext);
                                 o = this.GetType().GetField(flyNext, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                             }
                         }
@@ -643,6 +655,10 @@ namespace flychess
                                 }
                                 nextMove();
                                 return;
+                            }
+                            if (int.Parse(picid) == 8 & chessSet == blueChess)
+                            {
+                                step = step + 12;
                             }
                             if (int.Parse(picid) == 1)
                             {
@@ -692,7 +708,6 @@ namespace flychess
                                 changePic = "r" + (int.Parse(picid) + step - 13).ToString();
                             }
                             chessId = int.Parse(picid) + step;
-                            Console.WriteLine(changePic);
                             pictureBox.Image = null;
                             object o = this.GetType().GetField(changePic, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                             if (chessSet == redChess)
@@ -707,7 +722,6 @@ namespace flychess
                                     {
                                         flyNext = "r" + (chessId + 4 - 13).ToString();
                                     }
-                                    Console.WriteLine(flyNext);
                                     o = this.GetType().GetField(flyNext, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                                 }
                             }
@@ -723,7 +737,6 @@ namespace flychess
                                     {
                                         flyNext = "r" + (chessId + 4 - 13).ToString();
                                     }
-                                    Console.WriteLine(flyNext);
                                     o = this.GetType().GetField(flyNext, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                                 }
                             }
@@ -739,7 +752,6 @@ namespace flychess
                                     {
                                         flyNext = "r" + (chessId + 4 - 13).ToString();
                                     }
-                                    Console.WriteLine(flyNext);
                                     o = this.GetType().GetField(flyNext, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                                 }
                             }
@@ -755,7 +767,6 @@ namespace flychess
                                     {
                                         flyNext = "r" + (chessId + 4 - 13).ToString();
                                     }
-                                    Console.WriteLine(flyNext);
                                     o = this.GetType().GetField(flyNext, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
                                 }
                             }
