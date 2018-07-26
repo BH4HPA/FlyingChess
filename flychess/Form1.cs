@@ -83,14 +83,18 @@ namespace flychess
 
         private void y11_Click(object sender, EventArgs e)
         {
-            moveChess(y11);
+            moveChess_p(y11);
+        }
+        public void moveChess_p(PictureBox pictureBox )
+        {
+            if (startGame == false) return;
+            if (whoGo != whoAm) return;
+            if (step == 0) return;
+            moveChess(pictureBox);
         }
         public void moveChess(PictureBox pictureBox)
         {
             Console.WriteLine("---MoveChess:Debug---");
-            if (startGame == false) return;
-            if (whoGo != whoAm) return;
-            if (step == 0) return;
             Image chessSet;
             string changePic;
             int chessId;
@@ -807,20 +811,15 @@ namespace flychess
                 return;
             }
         }
-        void goChess(PictureBox pictureBox)
+        public void goChess_p(PictureBox pictureBox)
         {
-            if (startGame == false)
-            {
-                return;
-            }
-            if (whoGo != whoAm)
-            {
-                return;
-            }
-            if (step == 0)
-            {
-                return;
-            }
+            if (startGame == false)return;
+            if (whoGo != whoAm) return;
+            if (step == 0) return;
+            goChess(pictureBox);
+        }
+        public void goChess(PictureBox pictureBox)
+        {
             object change = this.GetType().GetField(pictureBox.Name.Substring(0,2), System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
             if (pictureBox.Image != null & pictureBox.Enabled == true & ((PictureBox)change).Image == null & step > 4)
             {
@@ -912,437 +911,437 @@ namespace flychess
         }
         private void y12_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void y13_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void l1_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void l2_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void l3_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void l4_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void l5_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void l6_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void l7_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void l8_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void l9_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void l10_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void l11_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void l12_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void l13_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void g1_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void g2_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void g3_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void g4_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void g5_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void g6_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void g7_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void g8_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void g9_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void g10_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void g11_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void g12_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void g13_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void r1_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void r2_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void r3_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void r4_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void r5_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void r6_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void r7_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void r8_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void r9_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void r10_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void r11_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void r12_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void r13_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void y1_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void y2_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void y3_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void y4_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void y5_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void y6_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void y7_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void y8_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void y9_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void y10_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void re1_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void re2_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void re3_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void re4_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void re5_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void ye1_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void ye2_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void ye3_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void ye4_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void ye5_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void le1_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void le2_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void le3_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void le4_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void le5_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void ge1_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void ge2_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void ge3_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void ge4_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void ge5_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void ys1_Click(object sender, EventArgs e)
         {
-            goChess((PictureBox)sender);
+            goChess_p((PictureBox)sender);
         }
 
         private void ys2_Click(object sender, EventArgs e)
         {
-            goChess((PictureBox)sender);
+            goChess_p((PictureBox)sender);
         }
 
         private void ys3_Click(object sender, EventArgs e)
         {
-            goChess((PictureBox)sender);
+            goChess_p((PictureBox)sender);
         }
 
         private void ys4_Click(object sender, EventArgs e)
         {
-            goChess((PictureBox)sender);
+            goChess_p((PictureBox)sender);
         }
 
         private void ls1_Click(object sender, EventArgs e)
         {
-            goChess((PictureBox)sender);
+            goChess_p((PictureBox)sender);
         }
 
         private void ls3_Click(object sender, EventArgs e)
         {
-            goChess((PictureBox)sender);
+            goChess_p((PictureBox)sender);
         }
 
         private void ls4_Click(object sender, EventArgs e)
         {
-            goChess((PictureBox)sender);
+            goChess_p((PictureBox)sender);
         }
 
         private void ls2_Click(object sender, EventArgs e)
         {
-            goChess((PictureBox)sender);
+            goChess_p((PictureBox)sender);
         }
 
         private void rs1_Click(object sender, EventArgs e)
         {
-            goChess((PictureBox)sender);
+            goChess_p((PictureBox)sender);
         }
 
         private void rs2_Click(object sender, EventArgs e)
         {
-            goChess((PictureBox)sender);
+            goChess_p((PictureBox)sender);
         }
 
         private void rs3_Click(object sender, EventArgs e)
         {
-            goChess((PictureBox)sender);
+            goChess_p((PictureBox)sender);
         }
 
         private void rs4_Click(object sender, EventArgs e)
         {
-            goChess((PictureBox)sender);
+            goChess_p((PictureBox)sender);
         }
 
         private void gs1_Click(object sender, EventArgs e)
         {
-            goChess((PictureBox)sender);
+            goChess_p((PictureBox)sender);
         }
 
         private void gs2_Click(object sender, EventArgs e)
         {
-            goChess((PictureBox)sender);
+            goChess_p((PictureBox)sender);
         }
 
         private void gs3_Click(object sender, EventArgs e)
         {
-            goChess((PictureBox)sender);
+            goChess_p((PictureBox)sender);
         }
 
         private void gs4_Click(object sender, EventArgs e)
         {
-            goChess((PictureBox)sender);
+            goChess_p((PictureBox)sender);
         }
 
         private void pictureBox5_Click(object sender, EventArgs e)
@@ -1436,22 +1435,22 @@ namespace flychess
 
         private void rs_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void ys_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void ls_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void gs_Click(object sender, EventArgs e)
         {
-            moveChess((PictureBox)sender);
+            moveChess_p((PictureBox)sender);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
