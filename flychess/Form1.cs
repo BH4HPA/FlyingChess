@@ -210,6 +210,7 @@ namespace flychess
                         ((PictureBox)changeo).Image = null;
                         putEndChess("rs", chessSet);
                         redInt = redInt - 1;
+                        redStart = redStart - 1;
                     }
                     Console.WriteLine($"step : {step}");
                     Console.WriteLine($"changeO : {((PictureBox)changeo).Name}");
@@ -232,6 +233,7 @@ namespace flychess
                             ((PictureBox)change).Image = null;
                             putEndChess("rs", chessSet);
                             redInt = redInt - 1;
+                            redStart = redStart - 1;
                         }
                         Console.WriteLine($"step : {step}");
                         Console.WriteLine($"change : {((PictureBox)change).Name}");
@@ -359,6 +361,7 @@ namespace flychess
                             ((PictureBox)changeo).Image = null;
                             putEndChess("ys", chessSet);
                             yellowInt = yellowInt - 1;
+                            yellowStart = yellowStart - 1;
                             Console.WriteLine($"step : {step}");
                             Console.WriteLine($"changeo : {changeo}");
                             Console.WriteLine("---MoveChessEnd---");
@@ -382,6 +385,7 @@ namespace flychess
                                 ((PictureBox)change).Image = null;
                                 putEndChess("ys", chessSet);
                                 yellowInt = yellowInt - 1;
+                                yellowStart = yellowStart - 1;
                                 Console.WriteLine($"step : {step}");
                                 Console.WriteLine($"change : {change}");
                                 Console.WriteLine("---MoveChessEnd---");
@@ -509,6 +513,7 @@ namespace flychess
                                 ((PictureBox)changeo).Image = null;
                                 putEndChess("ls", chessSet);
                                 blueInt = blueInt - 1;
+                                blueStart = blueStart - 1;
                             }
                             nextMove();
                             return;
@@ -529,6 +534,7 @@ namespace flychess
                                     ((PictureBox)change).Image = null;
                                     putEndChess("ls", chessSet);
                                     blueInt = blueInt - 1;
+                                    blueStart = blueStart - 1;
                                 }
                                 nextMove();
                                 return;
@@ -647,6 +653,7 @@ namespace flychess
                                     ((PictureBox)changeo).Image = null;
                                     putEndChess("gs", chessSet);
                                     greenInt = greenInt - 1;
+                                    greenStart = greenStart - 1;
                                 }
                                 nextMove();
                                 return;
@@ -667,6 +674,7 @@ namespace flychess
                                         ((PictureBox)change).Image = null;
                                         putEndChess("gs", chessSet);
                                         greenInt = greenInt - 1;
+                                        greenStart = greenStart - 1;
                                     }
                                     nextMove();
                                     return;
