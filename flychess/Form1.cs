@@ -1505,7 +1505,7 @@ namespace flychess
                 return;
             }
             Random rd = new Random();
-            step = rd.Next(1, 6);
+            step = rd.Next(1, 7);
             socketClient.Send(Encoding.UTF8.GetBytes($"step[{step.ToString()}]"));
             if (step == 1)
             {
