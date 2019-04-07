@@ -851,6 +851,7 @@ namespace flychess
             {
                 ((PictureBox)put).Image = chessImage;
                 ((PictureBox)put).Enabled = false;
+                ((PictureBox)put).BorderStyle = BorderStyle.FixedSingle;
                 return;
             }
             put = this.GetType().GetField(startStr + "2", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
@@ -858,6 +859,7 @@ namespace flychess
             {
                 ((PictureBox)put).Image = chessImage;
                 ((PictureBox)put).Enabled = false;
+                ((PictureBox)put).BorderStyle = BorderStyle.FixedSingle;
                 return;
             }
             put = this.GetType().GetField(startStr + "3", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
@@ -865,6 +867,7 @@ namespace flychess
             {
                 ((PictureBox)put).Image = chessImage;
                 ((PictureBox)put).Enabled = false;
+                ((PictureBox)put).BorderStyle = BorderStyle.FixedSingle;
                 return;
             }
             put = this.GetType().GetField(startStr + "4", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).GetValue(this);
@@ -872,6 +875,7 @@ namespace flychess
             {
                 ((PictureBox)put).Image = chessImage;
                 ((PictureBox)put).Enabled = false;
+                ((PictureBox)put).BorderStyle = BorderStyle.FixedSingle;
                 return;
             }
         }
